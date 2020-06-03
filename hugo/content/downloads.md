@@ -1,9 +1,66 @@
 ---
 title: Downloads
+downloads:
+-
+  href: windows-64
+  class: windows
+  name: Windows 64-bit
+-
+  href: windows-32
+  class: windows
+  name: Windows 32-bit
 ---
 We provide downloads for the official client and server programs. A Linux distribution may provide their own packages and have their own maintainer, which we will describe below. We also link to some third party projects.
 
 Version 1.3.1 is the latest stable version of Mumble and was released on June 08, 2020.
+
+## Suggested Mumble Version
+
+<div id="suggested-download">We suggest a download by determining the operating system with JavaScript. However JavaScript seems to not be available.</div>
+<script>
+'use strict'
+/* For win always Win32 on Firefox and Chrome */
+function parsePlatform(value) {
+    value = value.toLowerCase()
+    if (value.includes('win64') || value.includes('x64')) {
+        return 'win64'
+    }
+    if (value.includes('win32') || value.includes('win32')) {
+        return 'win32'
+    }
+    if (value.inludes('windows')) {
+        return 'win64'
+    }
+    if (value.includes('android')) {
+        return 'android'
+    }
+    if (value.includes('linux')) {
+        return 'linux'
+    }
+}
+function getPlatform() {
+    return parsePlatform(navigator.oscpu) || parsePlatform(navigator.appVersion) || parsePlatform(navigator.userAgent) || parsePlatform(navigator.platform)
+}
+function getPlatformContent(platform) {
+    switch (platform) {
+        case 'win64':
+            return '<a href="windows-64" style="display: block; background: green; border-radius: 8px; padding: 8px 16px;"><img src="/css/icons/windows.svg" width="100px" style="background: green;"> Mumble for Windows 64-bit</a>'
+            break;
+        case 'win32':
+            return '<a href="windows-32"><img src="/css/icons/windows.svg" width="100px"> Mumble for Windows 32-bit</a>'
+        default:
+            return 'Could not determine platform. Please choose the appropriate download yourself.'
+            break;
+    }
+}
+let platform = getPlatform()
+console.log(platform, getPlatformContent(platform))
+document.getElementById('suggested-download').innerHTML = getPlatformContent(platform)
+if (platform) {
+}
+</script>
+
+## Manual Download
 
 {{< content-layout/downloads >}}
 {{< content-layout/download name="Windows 64-bit" href="windows-64" osclass="windows">}}
